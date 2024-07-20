@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+VERSION=$1
+
+printf "module IconifyJson\n  VERSION = \"$VERSION\"\nend\n" > ./lib/iconify/version.rb
+bundle
+git add Gemfile.lock lib/iconify/version.rb
+git commit -m "Bump for $VERSION"
+git push
+git tag v$VERSION
+git push --tags
+gem build iconify-rails.gemspec
+gem push "iconify-rails-$VERSION.gem" --host https://rubygems.org
+rm "iconify-rails-$VERSION.gem"
