@@ -2,7 +2,7 @@
 
 VERSION=$1
 
-printf "module IconifyJson\n  VERSION = \"$VERSION\"\nend\n" > ./lib/iconify/version.rb
+printf "module Iconify\n  VERSION = \"$VERSION\"\nend\n" > ./lib/iconify/version.rb
 bundle
 git add Gemfile.lock lib/iconify/version.rb
 git commit -m "Bump for $VERSION"
