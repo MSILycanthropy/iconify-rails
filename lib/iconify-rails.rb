@@ -22,9 +22,11 @@ module Iconify
       raw = File.read(path)
       parsed = JSON.parse(raw)
       raw_suffixes = parsed.delete("suffixes")
+      raw_aliases = parsed.delete("aliases")
 
       self.const_set("ICON_DATA", parsed.freeze)
       self.const_set("SUFFIXES", raw_suffixes&.keys.freeze)
+      self.const_set("ALIASES", raw_aliases&.to_h { |k, v| [ k, v["parent"] ] }&.compact)
     end
   end
 end

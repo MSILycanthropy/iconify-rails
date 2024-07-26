@@ -1,8 +1,10 @@
 module Iconify::Helpers
   def icon(name, suffix: Iconify.configuration.default_suffix, **attrs)
     suffix = suffix.to_s
+
     icon_name = name.to_s.dasherize
-    icon_name = "#{icon_name}-#{suffix}" if suffix.present?
+    icon_name = "#{icon_name}-#{suffix}" if suffix.present? && !icon_name.include?(suffix)
+    icon_name = Iconify::ALIASES[icon_name] if aliased?(icon_name)
 
     icon = Iconify::ICON_DATA["icons"][icon_name]
 
@@ -16,6 +18,10 @@ module Iconify::Helpers
   end
 
   private
+
+  def aliased?(icon_name)
+    Iconify::ALIASES[icon_name].present?
+  end
 
   def read_view_box(icon)
     left = icon["left"] || Iconify::ICON_DATA["left"] || 0
