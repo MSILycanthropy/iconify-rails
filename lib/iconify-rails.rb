@@ -1,10 +1,13 @@
 module Iconify
+  class Error < StandardError; end
+
   class Configuration
-    attr_accessor :file, :default_suffix
+    attr_accessor :file, :default_suffix, :raise_on_missing_icon
 
     def initialize
       @file = "vendor/icons/heroicons.json"
       @default_suffix = nil
+      @raise_on_missing_icon = false
     end
   end
 
