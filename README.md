@@ -24,6 +24,7 @@ Now setup the location of the json, and the preferred variant if there is one.
 Iconify.configure do |config|
   config.file = "vendor/icons/heroicons.json"
   config.suffix = :suffix
+  # config.raise_on_missing_icon = true
 end
 ```
 
