@@ -8,7 +8,14 @@ module Iconify::Helpers
 
     icon = Iconify::ICON_DATA["icons"][icon_name]
 
-    tag.span { "#{icon_name} missing" } if icon.nil?
+    if icon.nil?
+      message = "#{icon_name} missing"
+      if Iconify.configuration.raise_on_missing_icon
+        raise Iconify::Error, message
+      end
+
+      return tag.span { message } if icon.nil?
+    end
 
     viewbox = read_view_box(icon)
 
